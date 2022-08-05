@@ -1,8 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const SimonMain = styled.main`
-
-`;
+export const SimonMain = styled.main``;
 
 export const SimonButtons = styled.div`
   display: flex;
@@ -15,53 +13,62 @@ export const SimonButtons = styled.div`
 export const TopButtons = styled.div`
   display: flex;
   gap: 1rem;
-`
+`;
 
 export const BottomButtons = styled.div`
   display: flex;
   gap: 1rem;
-`
-
-export const BlueButton = styled.button`
-  cursor: pointer;
-  width: 10rem;
-  height: 10rem;
-  border: none;
-  border-radius: .5rem;
-  border-top-left-radius: 100%;
-  background: blue;
-  box-shadow: 3px 3px 5px grey;
 `;
 
-export const GreenButton = styled.button`
-  cursor: pointer;
-  width: 10rem;
-  height: 10rem;
-  border: none;
-  border-radius: .5rem;
-  border-top-right-radius: 100%;
-  background-color: green;
-  box-shadow: 3px 3px 5px grey;
-`;
+const colorSelector = (color) => {
+  const styles = {
+    blue: css`
+      border-top-left-radius: 100%;
+      background: hsla(238, 100%, 30%, 1);
+      &:active {
+        background: hsla(238, 100%, 70%, 1);
+        box-shadow: 1px 1px 2px grey;
+      }
+    `,
+    green: css`
+      border-top-right-radius: 100%;
+      background-color: hsla(104, 100%, 25%, 1);
+      &:active {
+        background: hsla(104, 100%, 70%, 1);
+        box-shadow: 1px 1px 2px grey;
+      }
+    `,
+    red: css`
+      border-bottom-left-radius: 100%;
+      background: hsla(360, 100%, 43%, 1);
+      &:active {
+        background: hsla(360, 100%, 80%, 1);
+        box-shadow: 1px 1px 2px grey;
+      }
+    `,
+    yellow: css`
+      border-bottom-right-radius: 100%;
+      background: hsla(45, 100%, 50%, 1);
+      box-shadow: 3px 3px 5px grey;
+      &:active {
+        background: hsla(45, 100%, 80%, 1);
+        box-shadow: 1px 1px 2px grey;
+      }
+    `,
+  };
+  return styles[color];
+};
 
-export const RedButton = styled.button`
-  cursor: pointer;
-  width: 10rem;
-  height: 10rem;
-  border: none;
-  border-radius: .5rem;
-  border-bottom-left-radius: 100%;
-  background: red;
-  box-shadow: 3px 3px 5px grey;
-`;
+export const Button = styled.button(({ color }) => {
+  const styles = colorSelector(color);
 
-export const YellowButton = styled.button`
-  cursor: pointer;
-  width: 10rem;
-  height: 10rem;
-  border: none;
-  border-radius: .5rem;
-  border-bottom-right-radius: 100%;
-  background: yellow;
-  box-shadow: 3px 3px 5px grey;
-`;
+  return css`
+    cursor: pointer;
+    width: 10rem;
+    height: 10rem;
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 3px 3px 5px grey;
+    ${styles}
+  `;
+});
