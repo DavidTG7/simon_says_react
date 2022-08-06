@@ -2,7 +2,7 @@ import { Footer } from "./components/Footer/Footer.styles";
 import { Header } from "./components/Header/Header";
 import { SimonApp } from "./components/Simon/SimonApp";
 
-function App() {
+const App = () => {
   return (
     <>
       <Header />

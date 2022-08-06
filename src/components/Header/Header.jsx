@@ -1,9 +1,9 @@
 import { HeaderMain, HeaderTitle } from "./Header.styles";
 
-export const Header = () => {
+export const Header = (blue) => {
   return(
-    <HeaderMain>
-      <HeaderTitle>SIMON SAYS</HeaderTitle>
+    <HeaderMain blue={blue}>
+      <HeaderTitle >SIMON SAYS</HeaderTitle>
     </HeaderMain>
   );
 }
