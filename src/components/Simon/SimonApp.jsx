@@ -1,12 +1,14 @@
 import { useState } from "react";
 import {
-  BottomButtons,
   Button,
   SimonButtons,
   SimonMain,
-  TopButtons,
 } from "./SimonApp.styles";
-import sound from "../../sounds/sound.mp3";
+import wrong from "../../sounds/wrong.mp3";
+import blue from "../../sounds/blue.mp3";
+import green from "../../sounds/green.mp3";
+import red from "../../sounds/red.mp3";
+import yellow from "../../sounds/yellow.mp3";
 
 export const SimonApp = () => {
   const [isActiveBlue, setIsActiveBlue] = useState(false);
@@ -22,8 +24,8 @@ export const SimonApp = () => {
     const optionSelected = options[index];
     console.log(optionSelected);
 
-    switch(optionSelected) {
-      case 'blue':
+    switch (optionSelected) {
+      case "blue":
         setTimeout(() => {
           setIsActiveBlue(true);
           setTimeout(() => {
@@ -31,7 +33,7 @@ export const SimonApp = () => {
           }, 300);
         }, 1000);
         break;
-      case 'green':
+      case "green":
         setTimeout(() => {
           setIsActiveGreen(true);
           setTimeout(() => {
@@ -39,7 +41,7 @@ export const SimonApp = () => {
           }, 300);
         }, 1000);
         break;
-      case 'red':
+      case "red":
         setTimeout(() => {
           setIsActiveRed(true);
           setTimeout(() => {
@@ -47,7 +49,7 @@ export const SimonApp = () => {
           }, 300);
         }, 1000);
         break;
-      case 'yellow':
+      case "yellow":
         setTimeout(() => {
           setIsActiveYellow(true);
           setTimeout(() => {
@@ -56,53 +58,66 @@ export const SimonApp = () => {
         }, 1000);
         break;
       default:
-        // code block
-      }
-    };
-    
-    function playSound() {
-      var audio = new Audio(sound);
-      audio.play();
+      // code block
     }
-    
-    const handleClick = (e) => {
-      const value = e.target.value;
-      console.log(value);
-      setUserPicks([...userPicks, value])
-      // playSound();
-      randomChoice();
-      e.preventDefault();
-    };
-    
-    console.log(userPicks);
+  };
+
+  function playSound(sound) {
+    const sounds = {
+      blue,
+      green,
+      yellow,
+      red
+    }
+    var audio = new Audio(sounds[sound]);
+    audio.play();
+  }
+
+  const handleClick = (e) => {
+    const value = e.target.value;
+    console.log(value);
+    setUserPicks([...userPicks, value]);
+    playSound(value);
+    // randomChoice();
+    e.preventDefault();
+  };
+
+  console.log(userPicks);
+  const buttonSatates = [
+    {
+      blueSate: isActiveBlue,
+      color: "blue",
+    },
+    {
+      greenState: isActiveGreen,
+      color: "green",
+    },
+    {
+      redState: isActiveRed,
+      color: "red",
+    },
+    {
+      yellowState: isActiveYellow,
+      color: "yellow",
+    },
+  ];
+
+  const allButtons = buttonSatates.map((item, i) => {
+    const [state, color] = Object.values(item);
+
+    return (
+      <Button
+        key={`button-${i}`}
+        active={state}
+        value={color}
+        onClick={(active) => handleClick(active)}
+      />
+    );
+  });
+
   return (
     <SimonMain>
-      <SimonButtons>
-        <TopButtons>
-          <Button
-            active={isActiveBlue}
-            value="blue"
-            onClick={(active) => handleClick(active)}
-          />
-          <Button
-            active={isActiveGreen}
-            value="green"
-            onClick={(active) => handleClick(active)}
-          />
-        </TopButtons>
-        <BottomButtons>
-          <Button
-            active={isActiveRed}
-            value="red"
-            onClick={(active) => handleClick(active)}
-          />
-          <Button
-            active={isActiveYellow}
-            value="yellow"
-            onClick={(active) => handleClick(active)}
-          />
-        </BottomButtons>
-      </SimonButtons>
+      <SimonButtons>{allButtons}</SimonButtons>
     </SimonMain>
   );
 };

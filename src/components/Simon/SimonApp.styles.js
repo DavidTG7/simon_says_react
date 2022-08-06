@@ -4,19 +4,10 @@ export const SimonMain = styled.main``;
 
 export const SimonButtons = styled.div`
   display: flex;
-  flex-flow: column;
-  align-items: center;
-  margin: 5rem;
-  gap: 1rem;
-`;
-
-export const TopButtons = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-export const BottomButtons = styled.div`
-  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 21rem;
+  margin: 5rem auto;
   gap: 1rem;
 `;
 
