@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.js": "/simon_says_react/static/js/main.f4bad826.js",
+    "static/media/wrong.mp3": "/simon_says_react/static/media/wrong.b93d831d35f679e31846.mp3",
+    "static/media/blue.mp3": "/simon_says_react/static/media/blue.a48cecd75f5b984b32d4.mp3",
+    "static/media/yellow.mp3": "/simon_says_react/static/media/yellow.7d8596b5e2f3a7f84ad6.mp3",
+    "static/media/green.mp3": "/simon_says_react/static/media/green.944b1a6d1d86d0b28348.mp3",
+    "static/media/red.mp3": "/simon_says_react/static/media/red.42ac4c542ab7233aec79.mp3",
+    "index.html": "/simon_says_react/index.html",
+    "main.f4bad826.js.map": "/simon_says_react/static/js/main.f4bad826.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.f4bad826.js"
+  ]
+}
