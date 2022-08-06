@@ -1,14 +1,11 @@
 import { useState } from "react";
+import { playSound, randomChoice } from "./helper";
 import {
   Button,
   SimonButtons,
   SimonMain,
 } from "./SimonApp.styles";
-import wrong from "../../sounds/wrong.mp3";
-import blue from "../../sounds/blue.mp3";
-import green from "../../sounds/green.mp3";
-import red from "../../sounds/red.mp3";
-import yellow from "../../sounds/yellow.mp3";
+
 
 export const SimonApp = () => {
   const [isActiveBlue, setIsActiveBlue] = useState(false);
@@ -17,68 +14,14 @@ export const SimonApp = () => {
   const [isActiveYellow, setIsActiveYellow] = useState(false);
   let [userPicks, setUserPicks] = useState([]);
 
-  const options = ["blue", "red", "green", "yellow"];
-
-  const randomChoice = () => {
-    const index = Math.floor(Math.random() * 4);
-    const optionSelected = options[index];
-    console.log(optionSelected);
-
-    switch (optionSelected) {
-      case "blue":
-        setTimeout(() => {
-          setIsActiveBlue(true);
-          setTimeout(() => {
-            setIsActiveBlue(false);
-          }, 300);
-        }, 1000);
-        break;
-      case "green":
-        setTimeout(() => {
-          setIsActiveGreen(true);
-          setTimeout(() => {
-            setIsActiveGreen(false);
-          }, 300);
-        }, 1000);
-        break;
-      case "red":
-        setTimeout(() => {
-          setIsActiveRed(true);
-          setTimeout(() => {
-            setIsActiveRed(false);
-          }, 300);
-        }, 1000);
-        break;
-      case "yellow":
-        setTimeout(() => {
-          setIsActiveYellow(true);
-          setTimeout(() => {
-            setIsActiveYellow(false);
-          }, 300);
-        }, 1000);
-        break;
-      default:
-      // code block
-    }
-  };
-
-  function playSound(sound) {
-    const sounds = {
-      blue,
-      green,
-      yellow,
-      red
-    }
-    var audio = new Audio(sounds[sound]);
-    audio.play();
-  }
+  
 
   const handleClick = (e) => {
     const value = e.target.value;
     console.log(value);
     setUserPicks([...userPicks, value]);
     playSound(value);
-    // randomChoice();
+    randomChoice(setIsActiveBlue, setIsActiveGreen, setIsActiveRed, setIsActiveYellow);
     e.preventDefault();
   };
 
