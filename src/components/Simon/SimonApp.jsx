@@ -13,11 +13,11 @@ export const SimonApp = () => {
   const [isActiveGreen, setIsActiveGreen] = useState(false);
   const [isActiveRed, setIsActiveRed] = useState(false);
   const [isActiveYellow, setIsActiveYellow] = useState(false);
-  let userPicks = [];
+  let [userPicks, setUserPicks] = useState([]);
 
   const options = ["blue", "red", "green", "yellow"];
 
-  const randomChoice = (active) => {
+  const randomChoice = () => {
     const index = Math.floor(Math.random() * 4);
     const optionSelected = options[index];
     console.log(optionSelected);
@@ -57,23 +57,24 @@ export const SimonApp = () => {
         break;
       default:
         // code block
+      }
+    };
+    
+    function playSound() {
+      var audio = new Audio(sound);
+      audio.play();
     }
-  };
-
-  function playSound() {
-    var audio = new Audio(sound);
-    audio.play();
-  }
-
-  const handleClick = (e, active) => {
-    const value = e.target.value;
-    console.log(value);
-    userPicks.push(value);
+    
+    const handleClick = (e) => {
+      const value = e.target.value;
+      console.log(value);
+      setUserPicks([...userPicks, value])
+      // playSound();
+      randomChoice();
+      e.preventDefault();
+    };
+    
     console.log(userPicks);
-    playSound();
-    randomChoice(active);
-  };
-
   return (
     <SimonMain>
       <SimonButtons>
