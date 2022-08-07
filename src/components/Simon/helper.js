@@ -43,6 +43,8 @@ export const randomChoice = (
     default:
     // code block
   }
+
+  return optionSelected;
 };
 
 function machineChoice(setter, option) {

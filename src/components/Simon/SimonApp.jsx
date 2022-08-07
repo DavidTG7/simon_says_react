@@ -1,31 +1,65 @@
 import { useState } from "react";
 import { playSound, randomChoice } from "./helper";
-import {
-  Button,
-  SimonButtons,
-  SimonMain,
-} from "./SimonApp.styles";
-
+import { Button, SimonButtons, SimonMain } from "./SimonApp.styles";
 
 export const SimonApp = () => {
   const [isActiveBlue, setIsActiveBlue] = useState(false);
   const [isActiveGreen, setIsActiveGreen] = useState(false);
   const [isActiveRed, setIsActiveRed] = useState(false);
   const [isActiveYellow, setIsActiveYellow] = useState(false);
-  let [userPicks, setUserPicks] = useState([]);
+  const [machinePicks, setMachinePicks] = useState([]);
 
-  
+  let level = 1;
+
+  let myIndex = 0;
+
+  const start = () => {
+    if (!machinePicks.length) {
+      const newMachinePick = randomChoice(
+        setIsActiveBlue,
+        setIsActiveGreen,
+        setIsActiveRed,
+        setIsActiveYellow
+      );
+      setMachinePicks([...machinePicks, newMachinePick]);
+    } else {
+      level = 1;
+      setMachinePicks([]);
+      myIndex = 0;
+    }
+  };
+
+  const checkUserClick = (value) => {
+    if (value === machinePicks[myIndex]) {
+      playSound(value);
+      if (myIndex === machinePicks.length - 1) {
+        setMachinePicks([
+          ...machinePicks,
+          randomChoice(
+            setIsActiveBlue,
+            setIsActiveGreen,
+            setIsActiveRed,
+            setIsActiveYellow
+          ),
+        ]);
+        myIndex = 0;
+        return;
+      }
+      level += 1;
+      myIndex += 1;
+    } else {
+      playSound("wrong");
+      setTimeout(() => {
+        alert('Wrong! Try again...')}, 300);
+    }
+  };
 
   const handleClick = (e) => {
     const value = e.target.value;
-    console.log(value);
-    setUserPicks([...userPicks, value]);
-    playSound(value);
-    randomChoice(setIsActiveBlue, setIsActiveGreen, setIsActiveRed, setIsActiveYellow);
+    checkUserClick(value);
     e.preventDefault();
   };
 
-  console.log(userPicks);
   const buttonSatates = [
     {
       blueSate: isActiveBlue,
@@ -60,6 +94,7 @@ export const SimonApp = () => {
 
   return (
     <SimonMain>
+      <button onClick={start}>start</button>
       <SimonButtons>{allButtons}</SimonButtons>
     </SimonMain>
   );
