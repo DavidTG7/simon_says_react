@@ -5,17 +5,28 @@ export const SimonMain = styled.main``;
 export const SimonButtons = styled.div`
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
+  justify-content: space-between;
   width: 21rem;
+  height: max-content;
   margin: 5rem auto;
-  gap: 1rem;
+  /* gap: 1rem; */
+  padding: 1.2rem;
+  background: black;
+  border-radius: 100%;
+  /* border: 1px solid black; */
 `;
+
+export const Level = styled.h2`
+  color: blue;
+  font-size: 1.5rem;
+`
 
 const colorSelector = (value) => {
   const styles = {
     blue: css`
       border-top-left-radius: 100%;
       background: ${({active}) => active? 'hsla(238, 100%, 70%, 1)' : 'hsla(238, 100%, 30%, 1)'};
+      margin-bottom: 1rem;
       &:active {
         background: hsla(238, 100%, 70%, 1);
         box-shadow: 1px 1px 2px grey;
@@ -57,8 +68,29 @@ export const Button = styled.button(({ value }) => {
     width: 10rem;
     height: 10rem;
     border: none;
-    border-radius: 0.5rem;
-    box-shadow: 3px 3px 5px grey;
+    border-radius: 0.2rem;
     ${styles}
   `;
 });
+
+export const CenterButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+export const CenterButton = styled.button`
+  position: absolute;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 100%;
+  border: none;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto -17.6rem;
+  font-weight: 600;
+  font-size: ${({levelTag}) => levelTag ? '3rem' : '1.3rem'};
+`;

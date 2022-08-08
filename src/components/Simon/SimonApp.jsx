@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { playSound, randomChoice } from "./helper";
-import { Button, SimonButtons, SimonMain } from "./SimonApp.styles";
+import { Button, CenterButton, CenterButtonWrapper, Level, SimonButtons, SimonMain } from "./SimonApp.styles";
 
 export const SimonApp = () => {
   const [isActiveBlue, setIsActiveBlue] = useState(false);
@@ -9,24 +9,21 @@ export const SimonApp = () => {
   const [isActiveYellow, setIsActiveYellow] = useState(false);
   const [machinePicks, setMachinePicks] = useState([]);
 
-  let level = 1;
+  let level = machinePicks.length;
 
   let myIndex = 0;
 
   const start = () => {
-    if (!machinePicks.length) {
-      const newMachinePick = randomChoice(
-        setIsActiveBlue,
-        setIsActiveGreen,
-        setIsActiveRed,
-        setIsActiveYellow
-      );
-      setMachinePicks([...machinePicks, newMachinePick]);
-    } else {
-      level = 1;
-      setMachinePicks([]);
-      myIndex = 0;
-    }
+    setMachinePicks([]);
+    const newMachinePick = randomChoice(
+      setIsActiveBlue,
+      setIsActiveGreen,
+      setIsActiveRed,
+      setIsActiveYellow
+    );
+    setMachinePicks([newMachinePick]);
+
+    myIndex = 0;
   };
 
   const checkUserClick = (value) => {
@@ -45,14 +42,17 @@ export const SimonApp = () => {
         myIndex = 0;
         return;
       }
-      level += 1;
+      // level += 1;
       myIndex += 1;
     } else {
       playSound("wrong");
       setTimeout(() => {
-        alert('Wrong! Try again...')}, 300);
+        alert(`Wrong! Try again... \nFinal score = ${level - 1}`);
+      }, 300);
+      setMachinePicks([]);
     }
   };
+  console.log(level);
 
   const handleClick = (e) => {
     const value = e.target.value;
@@ -94,8 +94,16 @@ export const SimonApp = () => {
 
   return (
     <SimonMain>
-      <button onClick={start}>start</button>
-      <SimonButtons>{allButtons}</SimonButtons>
+      <SimonButtons>
+        <CenterButtonWrapper>
+        {!machinePicks.length 
+          ? <CenterButton onClick={start}>START</CenterButton>
+          : <CenterButton levelTag>{level}</CenterButton>
+        }
+
+        </CenterButtonWrapper>
+        {allButtons}
+      </SimonButtons>
     </SimonMain>
   );
 };
