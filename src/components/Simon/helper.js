@@ -47,13 +47,15 @@ export const randomChoice = (
   return optionSelected;
 };
 
-function machineChoice(setter, option) {
-  setTimeout(() => {
-    setter(true);
-    playSound(option);
-    setTimeout(() => {
-      setter(false);
-    }, 300);
-  }, 1000);
+const machineChoice = async (setter, option) => {
+  await timeout(1000);
+  setter(true);
+  playSound(option);
+  await timeout(300);
+  setter(false);
+}
+
+const timeout = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
