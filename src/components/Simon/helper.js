@@ -55,7 +55,12 @@ const machineChoice = async (setter, option) => {
   setter(false);
 }
 
-const timeout = (ms) => {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
 
+const timeout = (ms) => {
+  return new Promise(resolve => {
+   const timer = () => setTimeout(resolve, ms);
+   timer();
+    
+    clearTimeout(timer);
+  })
+}
